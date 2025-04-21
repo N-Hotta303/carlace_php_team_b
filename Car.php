@@ -22,10 +22,10 @@ class Car {
 
 
         //セッションに保存（ブランド名をキーにすることで複数台対応）
-        //$_SESSION["cars"][$this->brand] = [
-            //"capacity" => $this->capacity,
-            //"price" => $this->price,
-            //"acceleration" => $this->acceleration
-        //];
+        $_SESSION["cars"][$this->brand] = [
+            "capacity" => $this->capacity,
+            "price" => $this->price,
+            "acceleration" => $this->acceleration
+        ];
     }
 }
