@@ -63,11 +63,4 @@ $ferrari = new ferrari();
         </tr>
     </table>
 </body>
-</html><?php
-require_once("Honda.php");
-$honda = new Honda();
-require_once("Nissan.php");
-$nissan = new Nissan();
-require_once("Ferrari.php");
-$ferrari = new ferrari();
-?>
+</html>
