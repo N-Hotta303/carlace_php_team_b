@@ -2,7 +2,7 @@
 require_once("Ferrari.php");
 
 $ferrari = new Ferrari();
-$initialAccel = $ferrari->accel;
+$initialAccel = $ferrari->acceleration;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Ferrari ’²®ƒCƒ“ƒ^ƒ‰ƒNƒeƒBƒu</title>
+    <title>Ferrari èª¿æ•´ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ãƒ†ã‚£ãƒ–</title>
     <style>
         .hidden { display: none; }
         button {
@@ -29,20 +29,20 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 <body>
 
-    <h2>Ferrari ƒŠƒtƒgƒAƒbƒv’²®</h2>
+    <h2>Ferrari ãƒªãƒ•ãƒˆã‚¢ãƒƒãƒ—èª¿æ•´</h2>
 
     <div class="info">
-        <strong>y•ÏX‘O‚Ì‰Á‘¬“xz</strong>: <?= $initialAccel ?><br>
+        <strong>ã€å¤‰æ›´å‰ã®åŠ é€Ÿåº¦ã€‘</strong>: <?= $initialAccel ?><br>
     </div>
 
     <div class="info">
-        <strong>ƒŠƒtƒgƒAƒbƒv‰ñ”</strong>: <span id="liftCount">0</span><br>
-        <strong>y•ÏXŒã‚Ì‰Á‘¬“xz</strong>: <span id="adjustedAccel"><?= $initialAccel ?></span><br>
-        <strong>Ô‚ã¸</strong>: <span id="height">0</span>mm<br>
+        <strong>ãƒªãƒ•ãƒˆã‚¢ãƒƒãƒ—å›æ•°</strong>: <span id="liftCount">0</span><br>
+        <strong>ã€å¤‰æ›´å¾Œã®åŠ é€Ÿåº¦ã€‘</strong>: <span id="adjustedAccel"><?= $initialAccel ?></span><br>
+        <strong>è»Šé«˜ä¸Šæ˜‡</strong>: <span id="height">0</span>mm<br>
     </div>
 
-    <button onclick="changeLift(-1)">?1</button>
-    <button onclick="changeLift(1)">{1</button>
+    <button onclick="changeLift(-1)">âˆ’1</button>
+    <button onclick="changeLift(1)">ï¼‹1</button>
 
     <script>
         class FerrariAdjustment {
@@ -82,7 +82,7 @@ if (session_status() === PHP_SESSION_NONE) {
             ferrariAdjustment.changeLift(delta);
         }
 
-        // ‰Šú•\¦
+        // åˆæœŸè¡¨ç¤º
         ferrariAdjustment.updateDisplay();
     </script>
 

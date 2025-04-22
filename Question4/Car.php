@@ -10,6 +10,7 @@ class Car {
     public float $brakeCapa;
     public int $passengerNum;
 
+    //１％でブレーキ実行。加速度にbrakeCapaをべき乗
     function Brake( float $brakeCapa ){
         if( rand(1, 100) === 1){
             $this->acceleration = $this->acceleration *( 0.8 * $brakeCapa);
