@@ -3,13 +3,13 @@ class Car {
     public string $brand; //ブランド名（キーになる）
     public int $capacity; //定員数
     public float $price; //価格
-    public float $acceleration;
+    public float $accel;
     public int $maxSpeed;
     public float $brakeCapa;
 
     function Brake( float $brakeCapa ){
         if( rand(1, 100) === 1){
-            $this->acceleration = $this->acceleration *( 0.8 * $brakeCapa);
+            $this->accel = $this->accel *( 0.8 * $brakeCapa);
         }
     }
 
@@ -17,7 +17,7 @@ class Car {
         $this->brand = $brand;
         $this->capacity = rand($capMin, $capMax); //定員数を出す
         $this->price = rand($priceMin * 100, $priceMax * 100) / 100; //価格を出す
-        $this->acceleration = $accel; //加速度を入れる
+        $this->accel = $accel; //加速度を入れる
         $this->maxSpeed = $maxSpeed; //最高速度を入れる
 
 
@@ -25,7 +25,7 @@ class Car {
         $_SESSION["cars"][$this->brand] = [
             "capacity" => $this->capacity,
             "price" => $this->price,
-            "acceleration" => $this->acceleration
+            "acceleration" => $this->accel
         ];
     }
 }
