@@ -2,7 +2,7 @@
 require_once("Ferrari.php");
 
 $ferrari = new Ferrari();
-$initialAccel = $ferrari->acceleration;
+$initialAccel = $ferrari->accel;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
