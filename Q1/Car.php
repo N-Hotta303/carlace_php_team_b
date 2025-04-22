@@ -6,6 +6,10 @@ class Car {
     public float $acceleration;
     public int $maxSpeed;
     public float $brakeCapa;
+    public float $capMin;
+    public float $capMax;  
+    public float $priceMin;
+     public float $priceMax;
 
     function Brake( float $brakeCapa ){
         if( rand(1, 100) === 1){
@@ -15,6 +19,10 @@ class Car {
 
     public function __construct(string $brand, int $capMin, int $capMax, float $priceMin, float $priceMax, float $accel, int $maxSpeed) {
         $this->brand = $brand;
+        $this->capMin = $capMin;
+        $this->capMax = $capMax;
+        $this->priceMin = $priceMin;
+        $this->priceMax = $priceMax;
         $this->capacity = rand($capMin, $capMax); //定員数を出す
         $this->price = rand($priceMin * 100, $priceMax * 100) / 100; //価格を出す
         $this->acceleration = $accel; //加速度を入れる
