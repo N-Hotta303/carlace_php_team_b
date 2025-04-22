@@ -14,7 +14,7 @@ for ($i = 0; $i < $numCars; $i++) {
     $_SESSION["cars"]["Nissan"][] = [
         "capacity" => $nissan->capacity,
         "price" => $nissan->price,
-        "acceleration" => $nissan->acceleration,
+        "acceleration" => $nissan->accel,
         "maxSpeed" => $nissan->maxSpeed,
     ];
 }
