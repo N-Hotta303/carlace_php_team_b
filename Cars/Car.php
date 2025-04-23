@@ -20,18 +20,7 @@ class Car {
         $this->maxSpeed = $maxSpeed; //限界速度を入れる
 
         // プレイヤーの何人目かを$index取得（セッション数で判定）
-        $index = count($_SESSION["players"]);
-
-        // 各セッション配列が未定義なら初期化
-        $_SESSION["player_name"] ??= []; //プレイヤー名　startActionで入れる
-        $_SESSION["brand"]   ??= [];
-        $_SESSION["capacity"]??= [];
-        $_SESSION["price"]   ??= [];
-        $_SESSION["accel"]   ??= [];
-        $_SESSION["passenger_num"] ??= [];
-        $_SESSION["speed"]   ??= []; //スピード　ゲーム中に変動
-        $_SESSION["position"] ??= []; //位置　ゲーム中に変動
-        $_SESSION["ranking"] ??= []; //順位　ゴール判定になったら$_SESSION["player_name"]が入る
+        $index = count($_SESSION["player_name"]);
 
         // セッションに順番に追加
         $_SESSION["brand"][$index] = $this->brand;
