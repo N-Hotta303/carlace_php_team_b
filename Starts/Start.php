@@ -102,9 +102,11 @@
     <h1>現在のプレイヤー</h1>
     <ul>
     <?php
-    if( isset($_SESSION["player_name"])){
+    if (isset($_SESSION["player_name"]) && isset($_SESSION["brand"])) {
         for ($i = 0; $i < count($_SESSION["player_name"]); $i++) {
-            echo "<li>{$_SESSION["player_name"][$i]} さん：{$_SESSION["brand"][$i]}</li>";
+            $name = $_SESSION["player_name"][$i];
+            $brand = $_SESSION["brand"][$i] ?? "（未設定）"; // brandがない場合の保険
+            echo "<li>{$name} さん：{$brand}</li>";
         }
     }
     ?>
@@ -113,7 +115,7 @@
     <!--ゲームを始めるボタン-->
     <!--セッションplayeridが入っていて、4名いるかをチェックして実行する-->
     <?php if( isset($_SESSION["player_name"]) && count($_SESSION["player_name"]) === 4){ ?>
-        <form action="map.php" method="post">
+        <form action="Status.php" method="post">
             <input type="submit" name="start" value="始める！" />
         </form>
     <?php } ?>
