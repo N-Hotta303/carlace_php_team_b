@@ -27,6 +27,11 @@ class CarAction {
                 $_SESSION["velocity"][$i] = 56;
             }
 
+            //マイナスを制限
+            if ($_SESSION["velocity"][$i] < 0) {
+                $_SESSION["velocity"][$i] = 0;
+            }
+
             $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //移動距離を加算
 
             MapAction::changeCoord($i);       // 座標更新

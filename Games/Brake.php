@@ -6,7 +6,7 @@ class Brake {
 
         //eventRate%で実行し加速度を下げる。実行されなければ加速度をそのまま返却
         if (rand(1, 100) <= $eventRate * 100) {
-            return $accel * pow(0.8, $brakeCapa);
+            return $accel * -$brakeCapa;
         }
         return $accel;
     }
