@@ -102,7 +102,7 @@
     <h1>現在のプレイヤー</h1>
     <ul>
     <?php
-    if (isset($_SESSION["player_name"]) && isset($_SESSION["brand"])) {
+    if( isset($_SESSION["player_name"]) && isset($_SESSION["brand"])) {
         for ($i = 0; $i < count($_SESSION["player_name"]); $i++) {
             $name = $_SESSION["player_name"][$i];
             $brand = $_SESSION["brand"][$i] ?? "（未設定）"; // brandがない場合の保険
@@ -113,10 +113,10 @@
     </ul>
     
     <!--ゲームを始めるボタン-->
-    <!--セッションplayeridが入っていて、4名いるかをチェックして実行する-->
+    <!--player_idが入っていて、4名いるかをチェックして実行する-->
     <?php if( isset($_SESSION["player_name"]) && count($_SESSION["player_name"]) === 4){ ?>
         <form action="Status.php" method="post">
-            <input type="submit" name="start" value="始める！" />
+            <input type="submit" name="start" value="車のステータスを確認" />
         </form>
     <?php } ?>
 
