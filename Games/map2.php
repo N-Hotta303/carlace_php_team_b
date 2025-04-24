@@ -118,11 +118,13 @@ $coords = $_SESSION["coord"] ?? [];
             player.style.top = `${y + offset[i].dy - 10}px`;
             container.appendChild(player);
         });
+
+          $_SESSION["velocity"][0];
     </script>
-    
+
     <form action="carAction.php" method="post">
     <button type="submit">▶ 進む</button>
     </form>
-
+      
 </body>
 </html>

@@ -5,19 +5,19 @@ class EventNum {
         if ($pos <= 800) 
             return 0.9;
         elseif ($pos <= 1600) 
-            return 0.5;
+            return 0.3;
         elseif ($pos <= 2400) 
             return 0.9;
         elseif ($pos <= 3200) 
-            return 0.5;
+            return 0.3;
         elseif ($pos <= 4000) 
             return 0.9;
         elseif ($pos <= 4800) 
-            return 0.5;
+            return 0.3;
         elseif ($pos <= 5600) 
             return 0.9;
         elseif ($pos <= 6400) 
-            return 0.5;
+            return 0.3;
         else return 0.2;
     }
 }

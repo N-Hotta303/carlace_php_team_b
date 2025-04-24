@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'EventNum.php';
+require_once 'eventNums.php';
 require_once 'Brake.php';
-require_once 'MapAction.php';
-require_once 'PlayerAction.php';
+require_once 'mapAction.php';
+require_once 'playerAction.php';
 
 class CarAction {
     public static function changeStatus() {
@@ -23,8 +23,8 @@ class CarAction {
             $_SESSION["velocity"][$i] += $accel; //加速度を速度に加算
 
             // 速度が上限を超えたら制限
-            if ($_SESSION["velocity"][$i] > $_SESSION["maxSpeed"][$i]) {
-                $_SESSION["velocity"][$i] = $_SESSION["maxSpeed"][$i];
+            if ($_SESSION["velocity"][$i] > 56) {
+                $_SESSION["velocity"][$i] = 56;
             }
 
             $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //移動距離を加算
@@ -33,11 +33,18 @@ class CarAction {
             PlayerAction::setSquare($i);      // マスの位置更新
 
             // ゴール判定と記録
-            if ($_SESSION["position"][$i] >= 6200) {
+            if ($_SESSION["position"][$i] >= 6400) {
                 $newFinishers[] = [
                     'index' => $i,
                     'position' => $_SESSION["position"][$i],
                 ];
+            }
+
+            // すべてのプレイヤーがゴールしたか確認
+            if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) {
+                // 全員がゴールした場合、結果ページにリダイレクト
+                header("Location: Result/Result.php");
+                exit;
             }
         }
 
@@ -59,7 +66,7 @@ class CarAction {
         }
 
         // ゲーム画面に戻る
-        header("Location: game.php");
+        header("Location: map2.php");
         exit;
     }
 }

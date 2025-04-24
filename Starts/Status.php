@@ -16,6 +16,6 @@ for ($i = 0; $i < $playerCount; $i++) {
 }
 ?>
 
-<form action ="../Games/Game.php" method="POST">
+<form action ="../Games/map2.php" method="POST">
     <input type="submit" name="start" value="始める！" />
 </form>
