@@ -1,10 +1,17 @@
 <?php
 class PlayerAction {
-    public static function setSquare($index) {
-        // 位置をセッションの座標から取得
-        $coord = $_SESSION["coord"][$index]; // 例: ['top' => '100px', 'left' => '150px']
+    // positionからマス番号（0～31）を計算
+    public static function getSquareIndexByPosition($position) {
+        return floor($position / 100) % 32;
+    }
 
-        // プレイヤーのHTML的な位置情報をセッションに保存（ビューで使う）
-        $_SESSION["player_style"][$index] = "top: {$coord['top']}; left: {$coord['left']};";
+    // プレイヤーのマス番号をセッションに保存
+    public static function setSquare($index) {
+        if (!isset($_SESSION["position"][$index])) return;
+
+        $position = $_SESSION["position"][$index];
+        $square = self::getSquareIndexByPosition($position);
+
+        $_SESSION["coord"][$index] = $square; // coord にはマス番号を格納
     }
 }

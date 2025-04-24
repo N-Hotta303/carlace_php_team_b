@@ -1,29 +1,38 @@
 <?php
+session_start();
+require_once 'EventNum.php';
+require_once 'Brake.php';
+require_once 'MapAction.php';
+require_once 'PlayerAction.php';
+
 class CarAction {
     public static function changeStatus() {
         // 1秒進める用にターン数カウント
         $_SESSION["turn"] = ($_SESSION["turn"] ?? 0) + 1;
 
+        $newFinishers = []; // ゴールした人のリストを初期化
+
         for ($i = 0; $i < count($_SESSION["player_name"]); $i++) {
             // ゴール済みなら処理スキップ
             if (in_array($_SESSION["player_name"][$i], $_SESSION["ranking"])) 
-            continue;
+                continue;
 
             $event = EventNum::getEvent($_SESSION["position"][$i]); //位置に応じたブレーキ率取得
-            $accel = Brake::actBrake($i, $event); //ブレーキ率に応じてブレーキを作動し、加速度を取得
+            $accel = Brake::actBrake($i, $event); //ブレーキ率に応じて加速度取得
+
             $_SESSION["velocity"][$i] += $accel; //加速度を速度に加算
 
-            //速度が上限を超えたら丸め処理
+            // 速度が上限を超えたら制限
             if ($_SESSION["velocity"][$i] > $_SESSION["maxSpeed"][$i]) {
                 $_SESSION["velocity"][$i] = $_SESSION["maxSpeed"][$i];
             }
 
-            $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //速度と加速度に応じて進んだ距離を加算
+            $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //移動距離を加算
 
-            MapAction::changeCoord($i); //距離に応じて座標を取得
-            PlayerAction::setSquare($i); //座標に応じてアイコンを移動
+            MapAction::changeCoord($i);       // 座標更新
+            PlayerAction::setSquare($i);      // マスの位置更新
 
-            // ゴールラインを超えた人を記録しておく（後で順位を決める）
+            // ゴール判定と記録
             if ($_SESSION["position"][$i] >= 6200) {
                 $newFinishers[] = [
                     'index' => $i,
@@ -32,17 +41,16 @@ class CarAction {
             }
         }
 
-        // 新たにゴールした人がいれば、positionでソートしてから追加
+        // ゴールした人の順位を決定
         if (!empty($newFinishers)) {
             usort($newFinishers, function ($a, $b) {
-                return $b['position'] <=> $a['position']; // 降順（大きい順）で$newFinishersの順番変更
+                return $b['position'] <=> $a['position'];
             });
 
             foreach ($newFinishers as $finisher) {
                 $idx = $finisher['index'];
                 $name = $_SESSION["player_name"][$idx];
 
-                // まだ登録されていない場合だけ追加
                 if (!in_array($name, $_SESSION["ranking"])) {
                     $_SESSION["ranking"][] = $name;
                     $_SESSION["goal_time"][] = $_SESSION["turn"];
@@ -50,8 +58,11 @@ class CarAction {
             }
         }
 
-        //ゲーム画面にリダイレクトして終了
-        header("Location: Game.php");
+        // ゲーム画面に戻る
+        header("Location: game.php");
         exit;
     }
 }
+
+// ==== ボタン押下時に実行する処理 ====
+CarAction::changeStatus();
