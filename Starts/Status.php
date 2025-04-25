@@ -33,7 +33,7 @@ $playerCount = min($playerCount, $brandCount); // 一番短い配列の件数を
         #player1 { top: 10px; left: 10px; }
         #player2 { top: 10px; right: 10px; }
         #player3 { bottom: 40px; left: 10px; }
-        #player4 { bottom: 0px; right: 10px; }
+        #player4 { bottom: 40px; right: 10px; }
 
         .start-button {
             position: absolute;
