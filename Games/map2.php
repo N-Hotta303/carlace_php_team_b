@@ -22,9 +22,9 @@ $coords = $_SESSION["coord"] ?? [];
         /*マップ内側のステータス表*/
         .center-status {
             position: absolute;
-            top: 38%;
+            top: 180px; /* ← pxにすることで安定 */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             background-color: white;
             border-collapse: collapse;
             border: 2px solid #444;
