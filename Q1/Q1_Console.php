@@ -24,7 +24,7 @@ echo "加速度: " . $honda->acceleration ."m/s²\n";
 
 $hondaAccel = $honda->acceleration;
 $hondaAccel = applyBrake($hondaAccel); // ブレーキ処理を適用
-echo "加速度: " . $hondaAccel ."m/s²\n\n";
+echo "加速度: ー" . $hondaAccel ."m/s²\n\n";
 
 //日産ステータス
 echo $nissan->brand ."\n";
@@ -34,7 +34,7 @@ echo "加速度: " . $nissan->acceleration ."m/s²\n";
 
 $nissanAccel = $nissan->acceleration;
 $nissanAccel = applyBrake($nissanAccel); // ブレーキ処理を適用
-echo "加速度: " . $nissanAccel . "m/s²\n\n";
+echo "加速度: ー" . $nissanAccel . "m/s²\n\n";
 
 //フェラーリステータス
 echo $ferrari->brand ."\n";
@@ -44,5 +44,5 @@ echo "加速度: " . $ferrari->acceleration ."m/s²\n";
 
 $ferrariAccel = $ferrari->acceleration;
 $ferrariAccel = applyBrake($ferrariAccel); // ブレーキ処理を適用
-echo "加速度: " . $ferrariAccel . "m/s²\n\n";
+echo "加速度: ー" . $ferrariAccel . "m/s²\n\n";
 ?>
