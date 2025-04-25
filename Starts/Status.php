@@ -68,3 +68,4 @@ $playerCount = min($playerCount, $brandCount); // 一番短い配列の件数を
 <form action ="../Games/map2.php" method="POST" class="start-button">
     <input type="submit" name="start" value="始める！" />
 </form>
+
