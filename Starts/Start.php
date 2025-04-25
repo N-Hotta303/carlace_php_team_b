@@ -5,7 +5,7 @@
     if (isset($_POST["go_back"])) {
         $_SESSION = []; 
         session_destroy();
-        header("Location: register.php");
+        header("Location: Start.php");
         exit();
     }
     
