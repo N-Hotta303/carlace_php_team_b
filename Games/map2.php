@@ -62,11 +62,22 @@ $coords = $_SESSION["coord"] ?? [];
             z-index: 10;
             border: 3px solid darkgray;
         }
-
+        .turn-counter {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="map-container" id="map-container"></div>
+
+    <!-- ターン数表示部分 -->
+    <div class="turn-counter">
+        現在のタイム: <?= $_SESSION["turn"] ?? 0 ?> 秒
+    </div>
 
     <!--マップ作成部分-->
     <script>
@@ -193,14 +204,19 @@ $coords = $_SESSION["coord"] ?? [];
         <tr><th>プレイヤー</th><th>進んだ距離</th><th>速度</th><th>ブレーキ</th><th>順位</th></tr>
         <!--並び変えたインデックスを添え字にしてステータス表示-->
         <?php foreach ($indexes as $i): ?>
-        <tr>
-            <td><?= htmlspecialchars($_SESSION["player_name"][$i]) ?>
-                <script>
-                    coords.forEach((cellIndex, i) => {
-                    brandIcons[brand] || "🚘";
-                });
-                </script>
-            </td>
+    <?php
+        $name = htmlspecialchars($_SESSION["player_name"][$i]);
+        $brand = strtoupper($_SESSION["brand"][$i] ?? ""); // ブランドを大文字に
+        $icons = [
+            "HONDA" => "🚗",
+            "NISSAN" => "🚙",
+            "TOYOTA" => "🛻",
+            "FERRARI" => "🏎️"
+        ];
+        $icon = $icons[$brand] ?? "🚘";
+    ?>
+    <tr>
+        <td><?= $icon . " " . $name ?></td>
             <td><?= $_SESSION["position"][$i] ?>m</td>
             <td><?= number_format($_SESSION["velocity"][$i] * 3.6, 2) ?>km/h</td>
             <td><?= $_SESSION["braked"][$i] ? "⚠ ブレーキ" : "－" ?></td>
