@@ -48,7 +48,7 @@ $brands = $_SESSION["brand"] ?? [];
         <th>順位</th>
         <th>プレイヤー名</th>
         <th>車種</th>
-        <th>ゴール時間（ターン数）</th>
+        <th>ゴールタイム[m's]</th>
     </tr>
     <?php for ($i = 0; $i < count($ranking); $i++): ?>
         <tr>
@@ -59,9 +59,14 @@ $brands = $_SESSION["brand"] ?? [];
                 $index = array_search($ranking[$i], $_SESSION["player_name"]);
                 echo htmlspecialchars($brands[$index] ?? '―');
                 ?>
-            </td>
-            <td><?= $goalTimes[$i] ?>ターン</td>
-        </tr>
+        <td>
+            <?php
+            $seconds = (int)$goalTimes[$i];
+            $minutes = floor($seconds / 60);
+            $remainingSeconds = str_pad($seconds % 60, 2, '0', STR_PAD_LEFT);
+            echo "{$minutes}' {$remainingSeconds}";
+            ?>
+        </td>
     <?php endfor; ?>
 </table>
 
