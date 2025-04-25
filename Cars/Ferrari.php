@@ -3,7 +3,7 @@ require_once("Car.php");
 
 class Ferrari extends Car {
     public function __construct() {
-        parent::__construct('Ferrari', 1, 2, 2000, 4000, 8, 55, 1.0); // brake_capa 仮に1.2
+        parent::__construct('Ferrari', 1, 2, 2000, 4000, 8, 55, 0.9); // brake_capa
 
         $this->liftCount = $this->getLift_up();
         $this->adjustAcceleration($this->liftCount);
