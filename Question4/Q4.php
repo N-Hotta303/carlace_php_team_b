@@ -78,6 +78,18 @@ $Nissan = new Nissan();
             <th>今回の加速度</th>
             <td><?=$_SESSION["cars"]["Nissan"]["acceleration"] ?>m/s&sup2</td>
         </tr>
+        <tr>
+            <th>加速度補正</th>
+            <td>60%</td>
+        </tr>
+        <tr>
+            <th>乗員数補正</th>
+            <td><?=(0.95 ** $_SESSION["cars"]["Nissan"]["passengerNum"]) ?>%</td>
+        </tr>
+        <tr>
+            <th>元の加速度</th>
+            <td>6m/s&sup2</td>
+        </tr>
     </table>
 
         <!--HONDAの表-->
@@ -97,6 +109,18 @@ $Nissan = new Nissan();
             <th>今回の加速度</th>
             <td><?=$_SESSION["cars"]["Honda"]["acceleration"] ?>m/s&sup2</td>
         </tr>
+        <tr>
+            <th>加速度補正</th>
+            <td>100%</td>
+        </tr>
+        <tr>
+            <th>乗員数補正</th>
+            <td><?=(0.95 ** $_SESSION["cars"]["Honda"]["passengerNum"]) ?>%</td>
+        </tr>
+        <tr>
+            <th>元の加速度</th>
+            <td>6m/s&sup2</td>
+        </tr>
     </table>
 
         <!--FERRARIの表-->
@@ -115,6 +139,18 @@ $Nissan = new Nissan();
         <tr>
             <th>今回の加速度</th>
             <td><?=$_SESSION["cars"]["Ferrari"]["acceleration"] ?>m/s&sup2</td>
+        </tr>
+        <tr>
+            <th>加速度補正</th>
+            <td>100%</td>
+        </tr>
+        <tr>
+            <th>乗員数補正</th>
+            <td><?=(0.95 ** $_SESSION["cars"]["Ferrari"]["passengerNum"]) ?>%</td>
+        </tr>
+        <tr>
+            <th>元の加速度</th>
+            <td>12m/s&sup2</td>
         </tr>
     </table>
 </body>
