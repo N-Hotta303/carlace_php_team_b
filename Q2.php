@@ -32,12 +32,12 @@ if (session_status() === PHP_SESSION_NONE) {
     <h2>Ferrari リフトアップ調整</h2>
 
     <div class="info">
-        <strong>【変更前の加速度】</strong>: <?= $initialAccel ?><br>
+        <strong>【変更前の加速度】</strong>: <?= $initialAccel ?>m/s&sup2<br>
     </div>
 
     <div class="info">
-        <strong>リフトアップ回数</strong>: <span id="liftCount">0</span><br>
-        <strong>【変更後の加速度】</strong>: <span id="adjustedAccel"><?= $initialAccel ?></span><br>
+        <strong>リフトアップ回数</strong>: <span id="liftCount"></span>回<br>
+        <strong>【変更後の加速度】</strong>: <span id="adjustedAccel"><?= $initialAccel ?></span>m/s&sup2<br>
         <strong>車高上昇</strong>: <span id="height">0</span>mm<br>
     </div>
 
