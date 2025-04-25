@@ -240,6 +240,26 @@ $coords = $_SESSION["coord"] ?? [];
         <button type="submit">▶ 進む</button>
         </form>
     <?php } ?>
+
+
+    <form id="autoForm" action="carAction.php" method="POST">
+    <input type="hidden" name="auto" value="1">
+</form>
+
+<!-- 停止ボタン -->
+<button id="stopButton">停止</button>
+
+<script>
+    // インターバルIDを保持
+    let intervalId = setInterval(() => {
+        document.getElementById("autoForm").submit();
+    }, 2000); // 3秒おきに送信
+
+    // 停止ボタンが押されたとき
+    document.getElementById("stopButton").addEventListener("click", () => {
+        clearInterval(intervalId); // 自動送信を止める
+    });
+</script>
       
 </body>
 </html>
