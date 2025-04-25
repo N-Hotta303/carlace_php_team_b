@@ -21,10 +21,10 @@ class CarAction {
             $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //速度と加速度に応じて進んだ距離を加算
 
             MapAction::changeCoord($i); //距離に応じて座標を取得
-            PlayerAction::setSquare($i); //座標に応じてアイコンを移動
+            //いらないかも？　PlayerAction::setSquare($i); //座標に応じてアイコンを移動
 
             // ゴールラインを超えた人を記録しておく（後で順位を決める）
-            if ($_SESSION["position"][$i] >= 6200) {
+            if ($_SESSION["position"][$i] >= 7800) {
                 $newFinishers[] = [
                     'index' => $i,
                     'position' => $_SESSION["position"][$i],

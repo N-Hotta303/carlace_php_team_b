@@ -7,8 +7,8 @@
     <style>
   .map-container {
     display: grid;
-    grid-template-columns: repeat(25, 20px);
-    grid-template-rows: repeat(25, 20px);
+    grid-template-columns: repeat(21, 20px);
+    grid-template-rows: repeat(21, 20px);
     gap: 1px;
     width: fit-content;
     margin: 20px auto;
@@ -19,11 +19,17 @@
     height: 20px;
     background-color: #ddd;
     transition: background-color 0.3s;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
   }
+
+.icon {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+}
 
   .track {
     background-color: #444;
@@ -54,71 +60,33 @@
 <body>
     
 <div class="map-container">
-  <!-- ここにマスを配置 -->
-  <?php
-// 25x25マスの色を指定する配列
+<?php
+include("map1.php");
+// 20x20マスの色を指定する配列
 $colors = [];
-$size = 20;
-
-// 配列を生成（全マスはデフォルトで灰色）
-for ($y = 0; $y <= $size; $y++) {
-    for ($x = 0; $x < $size; $x++) {
-        // 全てのマスを灰色に設定
-        $colors[$y][$x] = 'empty';  // ここで「灰色」を指定
-    }
-}
-
-
+$size = 21;
 for ($y = 0; $y < $size; $y++) {
-    for ($x = 0; $x < $size; $x++) {
-        if ($y == 12 && $x == 5) {
-            // 特定のマスにだけ4台の車アイコンを表示
-            echo "<div class='cell track'>
-                    <div class='icon car1'></div>
-                    <div class='icon car2'></div>
-                    <div class='icon car3'></div>
-                    <div class='icon car4'></div>
-                  </div>";
-        } 
-        elseif ($y == 10 && $x == 5) {
-            echo "<div class='cell track'>
-                    <div class='icon car1'></div>
-                  </div>";
-        }
-        elseif ($y == 10 && $x == 6) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 7) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 8) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 9) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 10) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        else {
-            $class = $colors[$y][$x];
-            echo "<div class='cell $class'></div>";
-        }
+  for ($x = 0; $x < $size; $x++) {
+      $isTrack = false;
+      foreach ($trackCells as $cell) {
+          if ($cell['x'] === $x && $cell['y'] === $y) {
+              $isTrack = true;
+              break;
+          }
+      }
+
+      $class = $isTrack ? 'track' : 'empty';
+
+      // アイコンを表示
+      if ($x == $_SESSION['coord'][$i]['x'] && $y == $_SESSION['coord'][$i]['y']) {
+        echo "<div class='cell track'><div class='icon car{$i}'></div></div>";
     }
+
+      echo "<div class='cell $class'></div>";
+  }
 }
-
-
 ?>
+
 
 </div>
 

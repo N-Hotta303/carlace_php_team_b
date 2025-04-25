@@ -1,204 +1,26 @@
-for ($y = 0; $y < $size; $y++) {
-    for ($x = 0; $x < $size; $x++) {
-        if ($y == 12 && $x == 5) {
-            // 特定のマスにだけ4台の車アイコンを表示
-            echo "<div class='cell track'>
-                    <div class='icon car1'></div>
-                    <div class='icon car2'></div>
-                    <div class='icon car3'></div>
-                    <div class='icon car4'></div>
-                  </div>";
-        } 
-        elseif ($y == 10 && $x == 5) {
-            echo "<div class='cell track'>
-                    <div class='icon car1'></div>
-                  </div>";
-        }
-        elseif ($y == 10 && $x == 6) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 7) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 8) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 9) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 10) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 18 && $x == 19) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 17 && $x == 19) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
+<?php
+// 1. トラックのマス座標をまとめる（元コードの条件分岐を全部ここに入れる）
+$trackCells = [
+    // 横一直線
+    ['x' => 1, 'y' => 8], ['x' => 1, 'y' => 9], ['x' => 1, 'y' => 10], ['x' => 1, 'y' => 11], 
+    ['x' => 1, 'y' => 12], ['x' => 1, 'y' => 13], ['x' => 1, 'y' => 14], ['x' => 1, 'y' => 15], 
+    ['x' => 1, 'y' => 16], ['x' => 1, 'y' => 17], ['x' => 2, 'y' => 18], ['x' => 3, 'y' => 17],
+    ['x' => 3, 'y' => 16], ['x' => 3, 'y' => 15], ['x' => 3, 'y' => 14], ['x' => 4, 'y' => 13], 
+    ['x' => 5, 'y' => 12], ['x' => 5, 'y' => 11], ['x' => 5, 'y' => 10], ['x' => 6, 'y' => 9], 
+    ['x' => 7, 'y' => 10], ['x' => 7, 'y' => 11], ['x' => 7, 'y' => 12], ['x' => 8, 'y' => 13], 
+    ['x' => 9, 'y' => 12], ['x' => 10, 'y' => 11], ['x' => 11, 'y' => 10], ['x' => 11, 'y' => 9], 
+    ['x' => 11, 'y' => 8], ['x' => 11, 'y' => 7], ['x' => 11, 'y' => 6], ['x' => 11, 'y' => 5], 
+    ['x' => 11, 'y' => 4], ['x' => 12, 'y' => 3], ['x' => 13, 'y' => 3], ['x' => 14, 'y' => 2], 
+    ['x' => 15, 'y' => 2], ['x' => 16, 'y' => 2], ['x' => 17, 'y' => 2], ['x' => 18, 'y' => 2], 
+    ['x' => 19, 'y' => 2], ['x' => 20, 'y' => 2], ['x' => 20, 'y' => 3], ['x' => 20, 'y' => 4], 
+    ['x' => 19, 'y' => 5], ['x' => 18, 'y' => 6], ['x' => 17, 'y' => 5], ['x' => 16, 'y' => 6], 
+    ['x' => 15, 'y' => 5], ['x' => 14, 'y' => 6], ['x' => 14, 'y' => 7], ['x' => 15, 'y' => 8], 
+    ['x' => 16, 'y' => 9], ['x' => 17, 'y' => 10], ['x' => 18, 'y' => 11], ['x' => 19, 'y' => 12], 
+    ['x' => 19, 'y' => 13], ['x' => 19, 'y' => 14], ['x' => 18, 'y' => 15], ['x' => 17, 'y' => 16], 
+    ['x' => 16, 'y' => 17], ['x' => 15, 'y' => 17], ['x' => 14, 'y' => 16], ['x' => 13, 'y' => 15], 
+    ['x' => 12, 'y' => 14], ['x' => 11, 'y' => 13], ['x' => 9, 'y' => 10], ['x' => 9, 'y' => 9], 
+    ['x' => 8, 'y' => 8], ['x' => 8, 'y' => 7], ['x' => 7, 'y' => 6], ['x' => 7, 'y' => 5], 
+    ['x' => 6, 'y' => 4], ['x' => 5, 'y' => 3], ['x' => 4, 'y' => 4], ['x' => 3, 'y' => 5], 
+    ['x' => 3, 'y' =>  6], ['x' => 2, 'y' => 7]
 
-        elseif ($y == 16 && $x == 19) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 18 && $x == 18) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 18 && $x == 17) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 18 && $x == 16) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }        
-        elseif ($y == 18 && $x == 15) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 18 && $x == 14) {
-                echo  "<div class='cell track'>
-                <div class='icon track'></div>
-                </div>";
-        }
-        elseif ($y == 18 && $x == 13) {
-                echo  "<div class='cell track'>
-                <div class='icon track'></div>
-                </div>";
-        }
-        elseif ($y == 15 && $x == 18) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 14 && $x == 17) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 15 && $x == 16) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 14 && $x == 15) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }elseif ($y == 15 && $x == 13) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }elseif ($y == 14 && $x == 13) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 13 && $x == 13) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 12 && $x == 14) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 11 && $x == 15) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 10 && $x == 16) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }elseif ($y == 9 && $x == 17) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }elseif ($y == 8 && $x == 18) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 7 && $x == 18) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 6 && $x == 18) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 5 && $x == 17) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 4 && $x == 16) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 4 && $x == 15) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 4 && $x == 14) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 5 && $x == 13) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 6 && $x == 12) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 7 && $x == 11) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 6 && $x == 10) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        elseif ($y == 5 && $x == 9) {
-            echo  "<div class='cell track'>
-            <div class='icon track'></div>
-            </div>";
-        }
-        else {
-            $class = $colors[$y][$x];
-            echo "<div class='cell $class'></div>";
-        }
-    }
-}
+];
