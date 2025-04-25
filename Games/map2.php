@@ -28,7 +28,6 @@ $coords = $_SESSION["coord"] ?? [];
             background-color: white;
             border-collapse: collapse;
             border: 2px solid #444;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
             font-size: 14px;
             z-index: 5;
         }
@@ -232,14 +231,16 @@ $coords = $_SESSION["coord"] ?? [];
     <!--// すべてのプレイヤーがゴールしたらリザルト画面へ-->
     <?php if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) { ?>
         <form action="../Results/Result.php" method="post">
-        <button type="submit">▶ リザルト確認</button>
+        <button type="submit" style="padding: 10px 20px; font-size: 13px; background-color: lightblue; color: white; border-radius: 5px; cursor: pointer;">▶ リザルト確認</button>
         </form>
     <?php } else {?>
         <!--// ゴールしてない車がいれば「進む」ボタン表示-->
         <form action="carAction.php" method="post">
-        <button type="submit">▶ 進む</button>
+        <button type="submit" style="position: static; bottom: 30px; padding: 10px 20px; font-size: 13px; background-color: darkgreen; color: white; border-radius: 5px; cursor: pointer;">
+            ▶ 進む
+        </button>
         </form>
-    <?php } ?>
+    
 
 
     <form id="autoForm" action="carAction.php" method="POST">
@@ -247,13 +248,16 @@ $coords = $_SESSION["coord"] ?? [];
 </form>
 
 <!-- 停止ボタン -->
-<button id="stopButton">停止</button>
+<button id="stopButton" style="padding: 10px 20px; font-size: 13px; background-color: darkred; color: white; border-radius: 5px; cursor: pointer;">
+    停止
+</button>
+<?php } ?>
 
 <script>
     // インターバルIDを保持
     let intervalId = setInterval(() => {
         document.getElementById("autoForm").submit();
-    }, 2000); // 3秒おきに送信
+    }, 350); // 0.35秒おきに送信
 
     // 停止ボタンが押されたとき
     document.getElementById("stopButton").addEventListener("click", () => {
