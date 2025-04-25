@@ -17,10 +17,16 @@ class CarAction {
             if (in_array($_SESSION["player_name"][$i], $_SESSION["ranking"])) 
                 continue;
 
+            $_SESSION["braked"][$i] = false; //ブレーキフラグをリセット
+
             $event = EventNum::getEvent($_SESSION["position"][$i]); //位置に応じたブレーキ率取得
             $accel = Brake::actBrake($i, $event); //ブレーキ率に応じて加速度取得
+            // ブレーキされたら記録
+            if ($accel < 0) {
+                $_SESSION["braked"][$i] = true;
+            }
 
-            $_SESSION["velocity"][$i] += $accel; //加速度を速度に加算
+            $_SESSION["velocity"][$i] = round($_SESSION["velocity"][$i] + $accel, 2); //加速度を速度（小数第2位まで）に加算
 
             // 速度が上限を超えたら制限
             if ($_SESSION["velocity"][$i] > 56) {
@@ -32,7 +38,7 @@ class CarAction {
                 $_SESSION["velocity"][$i] = 0;
             }
 
-            $_SESSION["position"][$i] += $_SESSION["velocity"][$i] + 0.5 * $accel; //移動距離を加算
+            $_SESSION["position"][$i] += floor($_SESSION["velocity"][$i] + 0.5 * $accel); //移動距離を加算
 
             MapAction::changeCoord($i);       // 座標更新
             PlayerAction::setSquare($i);      // マスの位置更新

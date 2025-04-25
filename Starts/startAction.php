@@ -16,6 +16,7 @@ $_SESSION["coord"] ??= []; //座標　ゲーム用
 $_SESSION["ranking"] ??= []; //順位　ゴール判定になったら$_SESSION["player_name"]が入る
 $_SESSION["liftCount"] ??= []; //リフトアップ回数
 $_SESSION["height"] ??= []; //車高
+$_SESSION["isBraked"] ??= []; //ブレーキ確認
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -57,6 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["velocity"][$index] = 0;
             $_SESSION["position"][$index] = 0;
             $_SESSION["coord"][$index] = 0;
+            $_SESSION["isBraked"][$index] = 0;
+            $_SESSION["braked"][$index] = false;
+
         }	
     }
     //作成されたエラー文をセッションに格納

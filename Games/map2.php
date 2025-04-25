@@ -11,13 +11,36 @@ $coords = $_SESSION["coord"] ?? [];
     <meta charset="UTF-8">
     <title>トラック型マップ</title>
     <style>
-        .map-container {
+        /*マップの大きさ*/
+        .map-container { 
             width: 700px;
             height: 460px;
             position: relative;
             margin: 30px auto;
         }
 
+        /*マップ内側のステータス表*/
+        .center-status {
+            position: absolute;
+            top: 38%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-collapse: collapse;
+            border: 2px solid #444;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            font-size: 14px;
+            z-index: 5;
+        }
+
+        /*ステータス表のセル*/
+        .center-status th, .center-status td {
+            border: 1px solid #666;
+            padding: 4px 8px;
+            text-align: center;
+        }
+
+        /*マップのマス*/
         .cell {
             width: 60px;
             height: 60px;
@@ -30,6 +53,7 @@ $coords = $_SESSION["coord"] ?? [];
             font-weight: bold;
         }
 
+        /*アイコン*/
         .player {
             width: 20px;
             height: 20px;
@@ -39,6 +63,7 @@ $coords = $_SESSION["coord"] ?? [];
             border: 2px solid white;
         }
 
+        /*アイコンの色*/
         .player0 { background-color: red; }
         .player1 { background-color: blue; }
         .player2 { background-color: green; }
@@ -48,6 +73,7 @@ $coords = $_SESSION["coord"] ?? [];
 <body>
     <div class="map-container" id="map-container"></div>
 
+    <!--マップ作成部分-->
     <script>
         const container = document.getElementById("map-container");
         const r = 160;
@@ -91,6 +117,7 @@ $coords = $_SESSION["coord"] ?? [];
             positions[index] = { x, y };
         }
 
+        //マス作成用関数
         function createCell(index, x, y) {
             const cell = document.createElement("div");
             cell.className = "cell";
@@ -100,9 +127,10 @@ $coords = $_SESSION["coord"] ?? [];
             container.appendChild(cell);
         }
 
-        // coord（マス番号）をPHPから取得
+        // 各座標をJavascriptに保存
         const coords = <?php echo json_encode($coords); ?>;
 
+        //アイコンが重ならないよう、ずらす
         const offset = [
             { dx: -12, dy: -12 },
             { dx: 12, dy: -12 },
@@ -110,30 +138,77 @@ $coords = $_SESSION["coord"] ?? [];
             { dx: 12, dy: 12 }
         ];
 
+        //各アイコン表示
         coords.forEach((cellIndex, i) => {
             const { x, y } = positions[cellIndex];
             const player = document.createElement("div");
-            player.className = `player player${i}`;
-            player.style.left = `${x + offset[i].dx - 10}px`;
-            player.style.top = `${y + offset[i].dy - 10}px`;
+            player.className = `player player${i}`; //アイコンの色を適用
+            player.style.left = `${x + offset[i].dx - 10}px`; //ずらし作業
+            player.style.top = `${y + offset[i].dy - 10}px`; //ずらし作業
             container.appendChild(player);
         });
-
-          $_SESSION["velocity"][0];
     </script>
 
+
+    <!--ステータス画面の表示順を順位/進んだ距離でソートする処理-->
+    <?php
+    //プレイヤー数のインデックス作成
+    $indexes = array_keys($_SESSION["player_name"]);
+
+    usort($indexes, function($a, $b) {
+        //$rankingにはゴール済みの名前が入る
+        $ranking = $_SESSION["ranking"];
+
+        $nameA = $_SESSION["player_name"][$a];
+        $nameB = $_SESSION["player_name"][$b];
+
+        //ランキング済なら、名前を変数に格納
+        $rankA = array_search($nameA, $ranking);
+        $rankB = array_search($nameB, $ranking);
+
+        // 両方ゴール済 → ランキング順で入れ替え
+        if ($rankA !== false && $rankB !== false) {
+            return $rankA <=> $rankB;
+        }
+        // 片方のみゴール済 → ゴールした方が上
+        if ($rankA !== false) return -1;
+        if ($rankB !== false) return 1;
+
+        // どちらもレース中 → positionで比較
+        return $_SESSION["position"][$b] <=> $_SESSION["position"][$a];
+    });
+    ?>
+
+    <!--ステータス画面-->
+    <table class="center-status">
+        <tr><th>プレイヤー</th><th>進んだ距離</th><th>速度</th><th>ブレーキ</th><th>順位</th></tr>
+        <!--並び変えたインデックスを添え字にしてステータス表示-->
+        <?php foreach ($indexes as $i): ?>
+        <tr>
+            <td><?= htmlspecialchars($_SESSION["player_name"][$i]) ?></td>
+            <td><?= $_SESSION["position"][$i] ?>m</td>
+            <td><?= number_format($_SESSION["velocity"][$i] * 3.6, 2) ?>km/h</td>
+            <td><?= $_SESSION["braked"][$i] ? "⚠ ブレーキ" : "－" ?></td>
+            <?php
+            $rankIndex = array_search($_SESSION["player_name"][$i], $_SESSION["ranking"]);
+            ?>
+            <td><?= ($rankIndex !== false) ? ($rankIndex + 1) . " 位" : "レース中" ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+
+
     <!--// すべてのプレイヤーがゴールしたらリザルト画面へ-->
-            <?php if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) { ?>
-                // 全員がゴールした場合、結果ページにリダイレクト
-                <form action="../Results/Result.php" method="post">
-                <button type="submit">▶ リザルト確認</button>
-                </form>
-            <?php } ?>
-
-
-    <form action="carAction.php" method="post">
-    <button type="submit">▶ 進む</button>
-    </form>
+    <?php if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) { ?>
+        <form action="../Results/Result.php" method="post">
+        <button type="submit">▶ リザルト確認</button>
+        </form>
+    <?php } else {?>
+        <!--// ゴールしてない車がいれば「進む」ボタン表示-->
+        <form action="carAction.php" method="post">
+        <button type="submit">▶ 進む</button>
+        </form>
+    <?php } ?>
       
 </body>
 </html>
