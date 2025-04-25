@@ -14,6 +14,8 @@ $_SESSION["speed"]   ??= []; //ゲーム用
 $_SESSION["position"] ??= []; //ゲーム用
 $_SESSION["coord"] ??= []; //座標　ゲーム用
 $_SESSION["ranking"] ??= []; //順位　ゴール判定になったら$_SESSION["player_name"]が入る
+$_SESSION["liftCount"] ??= []; //リフトアップ回数
+$_SESSION["height"] ??= []; //車高
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -49,6 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["accel"][$index] = $carInstance->acceleration;
             $_SESSION["passenger_num"][$index] = $carInstance->passengerNum;
             $_SESSION["brake_capa"][$index] = $carInstance->brake_capa;
+            $_SESSION["liftCount"][$index] = $carInstance->liftCount;
+            $_SESSION["height"][$index] = $carInstance->height;
 
             $_SESSION["velocity"][$index] = 0;
             $_SESSION["position"][$index] = 0;

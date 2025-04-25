@@ -7,6 +7,9 @@ class Car {
     public float $acceleration;
     public int $maxSpeed;
     public float $brake_capa;
+    
+    public  $liftCount;
+    public  $height;
 
     public function __construct(string $brand, int $capMin, int $capMax, float $priceMin, float $priceMax, float $accel, int $maxSpeed, float $brake_capa) {
         $this->brand = $brand; //ブランド名
