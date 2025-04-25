@@ -122,6 +122,15 @@ $coords = $_SESSION["coord"] ?? [];
           $_SESSION["velocity"][0];
     </script>
 
+    <!--// すべてのプレイヤーがゴールしたらリザルト画面へ-->
+            <?php if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) { ?>
+                // 全員がゴールした場合、結果ページにリダイレクト
+                <form action="../Results/Result.php" method="post">
+                <button type="submit">▶ リザルト確認</button>
+                </form>
+            <?php } ?>
+
+
     <form action="carAction.php" method="post">
     <button type="submit">▶ 進む</button>
     </form>

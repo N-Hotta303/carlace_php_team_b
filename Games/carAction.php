@@ -45,12 +45,6 @@ class CarAction {
                 ];
             }
 
-            // すべてのプレイヤーがゴールしたか確認
-            if (count($_SESSION["ranking"]) === count($_SESSION["player_name"])) {
-                // 全員がゴールした場合、結果ページにリダイレクト
-                header("Location: Result/Result.php");
-                exit;
-            }
         }
 
         // ゴールした人の順位を決定

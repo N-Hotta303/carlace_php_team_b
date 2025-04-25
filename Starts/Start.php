@@ -1,6 +1,14 @@
 <?php
     session_start();
 
+    //終了画面から戻った場合、セッションを破棄してリダイレクト
+    if (isset($_POST["go_back"])) {
+        $_SESSION = []; 
+        session_destroy();
+        header("Location: register.php");
+        exit();
+    }
+    
     //コーディング中用、セッション消去コマンド（結果画面まで完成したら消して可）
     //$_SESSION = []; 
     //session_destroy();
