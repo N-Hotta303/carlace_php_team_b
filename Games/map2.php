@@ -60,14 +60,9 @@ $coords = $_SESSION["coord"] ?? [];
             border-radius: 50%;
             position: absolute;
             z-index: 10;
-            border: 2px solid white;
+            border: 3px solid darkgray;
         }
 
-        /*アイコンの色*/
-        .player0 { background-color: red; }
-        .player1 { background-color: blue; }
-        .player2 { background-color: green; }
-        .player3 { background-color: orange; }
     </style>
 </head>
 <body>
@@ -129,6 +124,16 @@ $coords = $_SESSION["coord"] ?? [];
 
         // 各座標をJavascriptに保存
         const coords = <?php echo json_encode($coords); ?>;
+        // 各車アイコンをJavascriptに保存＆大文字で統一
+        const brands = <?php echo json_encode($_SESSION["brand"]); ?>;
+
+        // アイコン登録
+        const brandIcons = {
+            "HONDA": "🚗",
+            "NISSAN": "🚙",
+            "TOYOTA": "🛻",
+            "FERRARI": "🏎️"
+        };
 
         //アイコンが重ならないよう、ずらす
         const offset = [
@@ -142,9 +147,13 @@ $coords = $_SESSION["coord"] ?? [];
         coords.forEach((cellIndex, i) => {
             const { x, y } = positions[cellIndex];
             const player = document.createElement("div");
-            player.className = `player player${i}`; //アイコンの色を適用
-            player.style.left = `${x + offset[i].dx - 10}px`; //ずらし作業
-            player.style.top = `${y + offset[i].dy - 10}px`; //ずらし作業
+            player.className = `player player${i}`;
+
+            const brand = (brands[i] || "").toUpperCase(); //brand名を全て大文字に
+            player.textContent = brandIcons[brand] || "🚘"; // アイコン表示（万が一未登録でもOKにする）
+
+            player.style.left = `${x + offset[i].dx - 10}px`;
+            player.style.top = `${y + offset[i].dy - 10}px`;
             container.appendChild(player);
         });
     </script>
@@ -185,7 +194,13 @@ $coords = $_SESSION["coord"] ?? [];
         <!--並び変えたインデックスを添え字にしてステータス表示-->
         <?php foreach ($indexes as $i): ?>
         <tr>
-            <td><?= htmlspecialchars($_SESSION["player_name"][$i]) ?></td>
+            <td><?= htmlspecialchars($_SESSION["player_name"][$i]) ?>
+                <script>
+                    coords.forEach((cellIndex, i) => {
+                    brandIcons[brand] || "🚘";
+                });
+                </script>
+            </td>
             <td><?= $_SESSION["position"][$i] ?>m</td>
             <td><?= number_format($_SESSION["velocity"][$i] * 3.6, 2) ?>km/h</td>
             <td><?= $_SESSION["braked"][$i] ? "⚠ ブレーキ" : "－" ?></td>
